@@ -880,7 +880,7 @@ button,input,select{max-width:100%;}
       let retried=false;
       video.addEventListener('error', function(){
         const e=video.error; // 1 aborted, 2 network/stream broke, 3 cannot decode, 4 format/source not supported
-        console.warn('[Tele..VDO] video #'+v.id+' failed: code '+(e&&e.code)+' '+((e&&e.message)||'')+' - open /diag/'+v.id+' on the server to see why');
+        console.warn('[Tele..VDO] video #'+v.id+' failed: code '+(e&&e.code)+' '+((e&&e.message)||'')+' - check the Vercel Function logs for details');
         // First failure: try the stream once more (a Telegram link can expire). Second: Telegram's own player.
         if(!retried){ retried=true; video.src=srcUrl+(srcUrl.indexOf('?')<0?'?':'&')+'r='+Date.now(); video.load(); if(video===teleActive) playTele(video); return; }
         if(frame.parentNode){ teleRatios.delete(video); frame.replaceWith(teleEmbedFrame(v.id)); }
@@ -926,7 +926,7 @@ button,input,select{max-width:100%;}
       renderTele(true);
       if(!teleView.hidden) teleStartFirst();
     }catch(e){
-      setMessage(teleStatus,'Cannot reach the video server ('+e.message+'). Start server.js, or set TELE_API_BASE.','error');
+      setMessage(teleStatus,'Cannot reach the Vercel video API ('+e.message+'). Check the /api/videos Function logs.','error');
     }
   }
 

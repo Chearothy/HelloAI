@@ -1,0 +1,8 @@
+.env
+.env.*
+node_modules
+server.js
+mtproto.js
+login.js
+loadenv.js
+index.txt
